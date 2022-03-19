@@ -10,7 +10,7 @@ import (
 func main() {
 	// 初始化一个选牌器
 	ms := suggest.NewMSelector()
-	ms.SetTiles(card.MahjongCards32)
+	ms.SetTiles(card.MahjongCards36)
 	tiles := ms.GetShuffleTiles()
 	_ = tiles
 

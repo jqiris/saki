@@ -4,12 +4,13 @@ import (
 	"sort"
 
 	"github.com/jqiris/saki/card"
+	"github.com/jqiris/saki/utils"
 )
 
 // GetCardsWeight 获取牌的权重列表
 // 如果指定了specified，表示只计算specified列出的这些，其他的不计算
 func GetCardsWeight(tiles []int, specified []int) map[int]int {
-	return GetCardsMapWeight(util.SliceToMap(tiles), specified)
+	return GetCardsMapWeight(utils.SliceToMap(tiles), specified)
 }
 
 // GetCardsMapWeight 获取牌的权重列表
@@ -20,7 +21,7 @@ func GetCardsMapWeight(m map[int]int, specified []int) map[int]int {
 	// 统计出出牌的优先级
 	for tile, cnt := range m {
 		// 指定只统计某些牌的权重
-		if specified != nil && !util.IntInSlice(tile, specified) {
+		if specified != nil && !utils.IntInSlice(tile, specified) {
 			continue
 		}
 
@@ -28,10 +29,10 @@ func GetCardsMapWeight(m map[int]int, specified []int) map[int]int {
 		// 计算牌自身的分
 		if !card.IsSuit(tile) {
 			// 非普通牌不加分
-		} else if util.IntInSlice(tile, card.SideCards) {
+		} else if utils.IntInSlice(tile, card.SideCards) {
 			// 边张的分
 			score += 10
-		} else if util.IntInSlice(tile, card.SideNeighborCards) {
+		} else if utils.IntInSlice(tile, card.SideNeighborCards) {
 			// 邻边张的分
 			score += 20
 		} else {
@@ -46,10 +47,10 @@ func GetCardsMapWeight(m map[int]int, specified []int) map[int]int {
 			score += 50
 		}
 		// 隔张的分
-		if !util.IntInSlice(tile, card.LeftSideCards) && m[tile+2] > 0 {
+		if !utils.IntInSlice(tile, card.LeftSideCards) && m[tile+2] > 0 {
 			score += 40
 		}
-		if !util.IntInSlice(tile, card.RightSideCards) && m[tile-2] > 0 {
+		if !utils.IntInSlice(tile, card.RightSideCards) && m[tile-2] > 0 {
 			score += 40
 		}
 		// 同张的分
@@ -96,7 +97,7 @@ func GetMinWeigthTiles(originTiles []int, specified []int, length int) []int {
 		weightTiles[v] = vs
 	}
 
-	weightValues = util.SliceUniqueInt(weightValues)
+	weightValues = utils.SliceUniqueInt(weightValues)
 	sort.Ints(weightValues)
 	for _, v := range weightValues {
 		tiles = append(tiles, weightTiles[v]...)

@@ -5,6 +5,7 @@ import (
 
 	"github.com/jqiris/saki/step"
 	"github.com/jqiris/saki/ting"
+	"github.com/jqiris/saki/utils"
 )
 
 // GetEffects 计算牌型所在的牌阶以及一类有效牌数量
@@ -27,7 +28,7 @@ func calcEffects(tiles []int, currentStep int) []int {
 	maybeFirstEffects := ting.GetMaybeTing(tiles, nil)
 	sort.Ints(maybeFirstEffects)
 	for _, maybeTile := range maybeFirstEffects {
-		fillingStep := step.GetCardsStep(append(util.SliceCopy(tiles), maybeTile))
+		fillingStep := step.GetCardsStep(append(utils.SliceCopy(tiles), maybeTile))
 		if fillingStep > currentStep {
 			effects = append(effects, maybeTile)
 		}

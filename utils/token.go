@@ -71,7 +71,7 @@ func Authcode(s string, operation string, key string) string {
 	if operation == "DECODE" {
 		sByte, err := base64.RawStdEncoding.DecodeString(s[ckeyLength:])
 		if err != nil {
-			// util.Logger.Warn("decode token failed.", err)
+			// utils.Logger.Warn("decode token failed.", err)
 			return ""
 		}
 		s = string(sByte)

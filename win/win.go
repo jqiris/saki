@@ -4,12 +4,13 @@ import (
 	"sort"
 
 	"github.com/jqiris/saki/card"
+	"github.com/jqiris/saki/utils"
 )
 
 // CanWin 判断当前牌型是否是胡牌牌型(7对或4A+2B)
 // 需要根据手牌和明牌去判断是否胡牌
 func CanWin(handCards, showCards []int) bool {
-	var sortedCards = util.SliceCopy(handCards)
+	var sortedCards = utils.SliceCopy(handCards)
 	// 升序排列
 	sort.Ints(sortedCards)
 	// 找到所有的对
@@ -29,7 +30,7 @@ func CanWin(handCards, showCards []int) bool {
 	if len(pos) == 5 &&
 		len(showCards) == 3 &&
 		showCards[0] == showCards[1] && showCards[0] == showCards[2] &&
-		util.IntInSlice(showCards[0], handCards) {
+		utils.IntInSlice(showCards[0], handCards) {
 		return true
 	}
 

@@ -4,6 +4,7 @@ import (
 	"github.com/jqiris/saki/card"
 	"github.com/jqiris/saki/step"
 	"github.com/jqiris/saki/ting"
+	"github.com/jqiris/saki/utils"
 	"github.com/jqiris/saki/weight"
 )
 
@@ -89,8 +90,8 @@ func (ms *MSelector) suggestByAIPlatinum(s []int) int {
 			maxEffectTotalWeights := map[int]int{}
 
 			// 循环删除某一张手牌，计算一类有效牌的数量
-			for _, playTile := range util.SliceUniqueInt(s) {
-				tiles := util.SliceDel(s, playTile)
+			for _, playTile := range utils.SliceUniqueInt(s) {
+				tiles := utils.SliceDel(s, playTile)
 				// 计算删除后的牌阶，如果小于当前牌阶，跳过计算
 				currentStep := step.GetCardsStep(tiles)
 				if currentStep < tilesStep {
@@ -157,7 +158,7 @@ func (ms *MSelector) suggestByAIPlatinum(s []int) int {
 // 根据权重筛选
 func (ms *MSelector) suggestByWeightAndRemain(tilesWeight map[int]int) int {
 	// 读取权重最小的牌
-	_, minWeightTiles := util.GetMapMinValue(tilesWeight)
+	_, minWeightTiles := utils.GetMapMinValue(tilesWeight)
 
 	// 找出权重最小的牌中，关联牌最少的一张
 	minRelationCnt := 1000000
@@ -186,7 +187,7 @@ func (ms *MSelector) GetSuggestMap(maxLength int) map[int][]int {
 		return suggestMap
 	}
 	// 用户手牌
-	handTiles := util.MapToSlice(ms.handTiles)
+	handTiles := utils.MapToSlice(ms.handTiles)
 	// 如果有孤张，则优先提示孤张
 	// 孤张按权重来选，优先边张
 	if gTiles := ms.getGuTiles(); len(gTiles) > 0 {
@@ -204,10 +205,10 @@ func (ms *MSelector) GetSuggestMap(maxLength int) map[int][]int {
 	// 循环删除一张手牌后，计算一类有效牌的数量
 	for playTile := range ms.handTiles {
 		// 孤对不推荐
-		if util.IntInSlice(playTile, gpTiles) {
+		if utils.IntInSlice(playTile, gpTiles) {
 			continue
 		}
-		tiles := util.SliceDel(handTiles, playTile)
+		tiles := utils.SliceDel(handTiles, playTile)
 		// 如果打出后，牌阶比之前的还要低，肯定不能这么打
 		playedStep := step.GetCardsStep(tiles)
 		if playedStep < currentStep {
@@ -226,10 +227,10 @@ func (ms *MSelector) GetSuggestMap(maxLength int) map[int][]int {
 		for playTile := range ms.handTiles {
 			sEffects := []int{}
 			// 孤对不推荐
-			if util.IntInSlice(playTile, gpTiles) {
+			if utils.IntInSlice(playTile, gpTiles) {
 				continue
 			}
-			tiles := util.SliceDel(handTiles, playTile)
+			tiles := utils.SliceDel(handTiles, playTile)
 			// 如果打出后，牌阶比之前的还要低，肯定不能这么打
 			playedStep := step.GetCardsStep(tiles)
 			if playedStep < currentStep {
@@ -265,7 +266,7 @@ func (ms *MSelector) GetSuggestMap(maxLength int) map[int][]int {
 		remainTiles = weight.GetMinWeigthTiles(handTiles, remainTiles, maxLength)
 	}
 	for k := range suggestMap {
-		if !util.IntInSlice(k, remainTiles) {
+		if !utils.IntInSlice(k, remainTiles) {
 			delete(suggestMap, k)
 		}
 	}

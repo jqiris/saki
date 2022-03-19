@@ -1,5 +1,7 @@
 package card
 
+import "github.com/jqiris/saki/utils"
+
 // IsSuit 是否普通牌
 // 普通牌是指万、筒、条
 func IsSuit(card int) bool {
@@ -19,15 +21,15 @@ func GetSelfAndNeighborCards(cards ...int) []int {
 		if !IsSuit(card) {
 			continue
 		}
-		if util.IntInSlice(card, LeftSideCards) {
+		if utils.IntInSlice(card, LeftSideCards) {
 			result = append(result, card+1)
-		} else if util.IntInSlice(card, RightSideCards) {
+		} else if utils.IntInSlice(card, RightSideCards) {
 			result = append(result, card-1)
 		} else {
 			result = append(result, card-1, card+1)
 		}
 	}
-	return util.SliceUniqueInt(result)
+	return utils.SliceUniqueInt(result)
 }
 
 // GetRelationTiles 获取有关联的牌
@@ -41,19 +43,19 @@ func GetRelationTiles(cards ...int) []int {
 			continue
 		}
 
-		if util.IntInSlice(card, LeftSideCards) {
+		if utils.IntInSlice(card, LeftSideCards) {
 			result = append(result, card+1, card+2)
-		} else if util.IntInSlice(card, LeftSideNeighborCards) {
+		} else if utils.IntInSlice(card, LeftSideNeighborCards) {
 			result = append(result, card+1, card+2, card-1)
-		} else if util.IntInSlice(card, RightSideNeighborCards) {
+		} else if utils.IntInSlice(card, RightSideNeighborCards) {
 			result = append(result, card-1, card-2, card+1)
-		} else if util.IntInSlice(card, RightSideCards) {
+		} else if utils.IntInSlice(card, RightSideCards) {
 			result = append(result, card-1, card-2)
 		} else {
 			result = append(result, card-1, card-2, card+1, card+2)
 		}
 	}
-	return util.SliceUniqueInt(result)
+	return utils.SliceUniqueInt(result)
 }
 
 // IsSameType 检查两张牌是否同类
@@ -80,7 +82,7 @@ func IsDot(card int) bool {
 func GetBehindCardCycle(card int) int {
 	var behind int
 	if IsSuit(card) {
-		if util.IntInSlice(card, RightSideCards) {
+		if utils.IntInSlice(card, RightSideCards) {
 			behind = card - 8
 		} else {
 			behind = card + 1
@@ -93,7 +95,7 @@ func GetBehindCardCycle(card int) int {
 func GetFrontCardCycle(card int) int {
 	var front int
 	if IsSuit(card) {
-		if util.IntInSlice(card, LeftSideCards) {
+		if utils.IntInSlice(card, LeftSideCards) {
 			front = card + 8
 		} else {
 			front = card - 1

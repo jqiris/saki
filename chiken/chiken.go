@@ -3,6 +3,7 @@ package chiken
 import (
 	"github.com/jqiris/saki/card"
 	"github.com/jqiris/saki/setting"
+	"github.com/jqiris/saki/utils"
 )
 
 // MChiken 鸡
@@ -18,7 +19,7 @@ type MChiken struct {
 
 // NewMChiken 生成一个新的鸡的容器
 func NewMChiken() *MChiken {
-	mc := &MChiken{tumblingIndexes: make([]int, 0), weekDay: util.GetChinaWeekDay()}
+	mc := &MChiken{tumblingIndexes: make([]int, 0), weekDay: utils.GetChinaWeekDay()}
 	return mc
 }
 
@@ -40,5 +41,5 @@ func (mc *MChiken) GetChikensByGivenTiles(s *setting.MSetting, tiles ...int) []i
 			}
 		}
 	}
-	return util.SliceUniqueInt(chikens)
+	return utils.SliceUniqueInt(chikens)
 }

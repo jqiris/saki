@@ -2,6 +2,7 @@ package ting
 
 import (
 	"github.com/jqiris/saki/card"
+	"github.com/jqiris/saki/utils"
 	"github.com/jqiris/saki/win"
 )
 
@@ -30,7 +31,7 @@ func GetMaybeTing(handCards, showCards []int) []int {
 	maybeCards := card.GetSelfAndNeighborCards(handCards...)
 	if len(showCards) == 3 &&
 		showCards[0] == showCards[1] && showCards[1] == showCards[2] &&
-		!util.IntInSlice(showCards[0], maybeCards) {
+		!utils.IntInSlice(showCards[0], maybeCards) {
 		maybeCards = append(maybeCards, showCards[0])
 	}
 	return maybeCards
@@ -41,8 +42,8 @@ func GetMaybeTing(handCards, showCards []int) []int {
 // value: 听哪些
 func GetTingMap(handCards, showCards []int) map[int][]int {
 	tingMap := make(map[int][]int)
-	for _, playCard := range util.SliceUniqueInt(handCards) {
-		if ting, tingCards := CanTing(util.SliceDel(handCards, playCard), showCards); ting {
+	for _, playCard := range utils.SliceUniqueInt(handCards) {
+		if ting, tingCards := CanTing(utils.SliceDel(handCards, playCard), showCards); ting {
 			tingMap[playCard] = tingCards
 		}
 	}

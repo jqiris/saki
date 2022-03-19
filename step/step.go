@@ -3,6 +3,7 @@ package step
 import (
 	"sort"
 
+	"github.com/jqiris/saki/utils"
 	"github.com/jqiris/saki/win"
 )
 
@@ -10,7 +11,7 @@ import (
 // fixme 暂未考虑7对情形
 func GetCardsStep(showTiles []int) int {
 	var cardsStep int
-	var sortedCards = util.SliceCopy(showTiles)
+	var sortedCards = utils.SliceCopy(showTiles)
 	// 升序排列
 	sort.Ints(sortedCards)
 

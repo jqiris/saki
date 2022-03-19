@@ -1,5 +1,9 @@
 package wall
 
+import (
+	"github.com/jqiris/saki/utils"
+)
+
 // Wall 牌墙
 type Wall struct {
 	tiles    []int // 所有牌
@@ -40,7 +44,7 @@ func (wall *Wall) GetTiles() []int {
 
 // Shuffle 洗牌
 func (wall *Wall) Shuffle() {
-	wall.tiles = util.ShuffleSliceInt(wall.tiles)
+	wall.tiles = utils.ShuffleSliceInt(wall.tiles)
 }
 
 // Length 获取牌墙长度

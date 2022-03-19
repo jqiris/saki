@@ -4,6 +4,7 @@ import (
 	"sort"
 
 	"github.com/jqiris/saki/card"
+	"github.com/jqiris/saki/utils"
 )
 
 // MSelector 麻将选牌器
@@ -56,27 +57,27 @@ func (ms *MSelector) GetTiles() map[int]int {
 
 // GetShuffleTiles 获取打乱排序的牌
 func (ms *MSelector) GetShuffleTiles() []int {
-	return util.ShuffleSliceInt(util.MapToSlice(ms.tiles))
+	return utils.ShuffleSliceInt(utils.MapToSlice(ms.tiles))
 }
 
 // SetTiles 设置所有的牌
 func (ms *MSelector) SetTiles(s []int) {
-	ms.tiles = util.SliceToMap(s)
+	ms.tiles = utils.SliceToMap(s)
 }
 
 // AddHandTilesMap 添加手牌
 func (ms *MSelector) AddHandTilesMap(m map[int]int) {
-	ms.handTiles = util.MergeMap(ms.handTiles, m)
+	ms.handTiles = utils.MergeMap(ms.handTiles, m)
 }
 
 // AddHandTilesSlice 添加手牌
 func (ms *MSelector) AddHandTilesSlice(s []int) {
-	ms.handTiles = util.MergeMap(ms.handTiles, util.SliceToMap(s))
+	ms.handTiles = utils.MergeMap(ms.handTiles, utils.SliceToMap(s))
 }
 
 // SetHandTilesSlice 设置手牌
 func (ms *MSelector) SetHandTilesSlice(s []int) {
-	ms.handTiles = util.SliceToMap(s)
+	ms.handTiles = utils.SliceToMap(s)
 }
 
 // SetHandTilesMap 设置手牌
@@ -86,24 +87,24 @@ func (ms *MSelector) SetHandTilesMap(m map[int]int) {
 
 // ShowHandTiles 显示手牌
 func (ms *MSelector) ShowHandTiles() []int {
-	s := util.MapToSlice(ms.handTiles)
+	s := utils.MapToSlice(ms.handTiles)
 	sort.Ints(s)
 	return s
 }
 
 // AddShowTilesSlice 添加明牌
 func (ms *MSelector) AddShowTilesSlice(s []int) {
-	ms.showTiles = util.MergeMap(ms.showTiles, util.SliceToMap(s))
+	ms.showTiles = utils.MergeMap(ms.showTiles, utils.SliceToMap(s))
 }
 
 // AddShowTilesMap 添加明牌
 func (ms *MSelector) AddShowTilesMap(m map[int]int) {
-	ms.showTiles = util.MergeMap(ms.showTiles, m)
+	ms.showTiles = utils.MergeMap(ms.showTiles, m)
 }
 
 // SetShowTilesSlice 添加明牌
 func (ms *MSelector) SetShowTilesSlice(s []int) {
-	ms.showTiles = util.SliceToMap(s)
+	ms.showTiles = utils.SliceToMap(s)
 }
 
 // SetShowTilesMap 添加明牌
@@ -113,24 +114,24 @@ func (ms *MSelector) SetShowTilesMap(m map[int]int) {
 
 // ShowShowTiles 显示明牌
 func (ms *MSelector) ShowShowTiles() []int {
-	s := util.MapToSlice(ms.showTiles)
+	s := utils.MapToSlice(ms.showTiles)
 	sort.Ints(s)
 	return s
 }
 
 // AddDiscardTilesSlice 添加弃牌
 func (ms *MSelector) AddDiscardTilesSlice(s []int) {
-	ms.discardTiles = util.MergeMap(ms.discardTiles, util.SliceToMap(s))
+	ms.discardTiles = utils.MergeMap(ms.discardTiles, utils.SliceToMap(s))
 }
 
 // AddDiscardTilesMap 添加弃牌
 func (ms *MSelector) AddDiscardTilesMap(m map[int]int) {
-	ms.discardTiles = util.MergeMap(ms.discardTiles, m)
+	ms.discardTiles = utils.MergeMap(ms.discardTiles, m)
 }
 
 // SetDiscardTilesSlice 设置弃牌
 func (ms *MSelector) SetDiscardTilesSlice(s []int) {
-	ms.discardTiles = util.SliceToMap(s)
+	ms.discardTiles = utils.SliceToMap(s)
 }
 
 // SetDiscardTilesMap 设置弃牌
@@ -140,14 +141,14 @@ func (ms *MSelector) SetDiscardTilesMap(m map[int]int) {
 
 // ShowDiscardTiles 显示明牌
 func (ms *MSelector) ShowDiscardTiles() []int {
-	s := util.MapToSlice(ms.discardTiles)
+	s := utils.MapToSlice(ms.discardTiles)
 	sort.Ints(s)
 	return s
 }
 
 // SetRemainTilesSlice 设置剩余的牌
 func (ms *MSelector) SetRemainTilesSlice(s []int) {
-	ms.remainTiles = util.SliceToMap(s)
+	ms.remainTiles = utils.SliceToMap(s)
 }
 
 // SetRemainTilesMap 添加剩余的牌
@@ -171,7 +172,7 @@ func (ms *MSelector) DeductRemainTiles(tiles ...int) {
 
 // ShowRemainTiles 显示剩余的牌
 func (ms *MSelector) ShowRemainTiles() []int {
-	s := util.MapToSlice(ms.remainTiles)
+	s := utils.MapToSlice(ms.remainTiles)
 	sort.Ints(s)
 	return s
 }
@@ -195,7 +196,7 @@ func (ms *MSelector) CalcRemaimTiles() {
 // 读取给予的牌的剩余张数之和
 func (ms *MSelector) getRemainTilesCnt(tiles []int) int {
 	cnt := 0
-	for _, t := range util.SliceUniqueInt(tiles) {
+	for _, t := range utils.SliceUniqueInt(tiles) {
 		cnt += ms.remainTiles[t]
 	}
 	return cnt

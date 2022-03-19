@@ -1,5 +1,7 @@
 package dice
 
+import "github.com/jqiris/saki/utils"
+
 // DiceRange 骰子的范围
 var diceRange = [6]int{1, 2, 3, 4, 5, 6}
 
@@ -12,7 +14,7 @@ func GetDiceRange() [6]int {
 func GenerateDiceList() [2]int {
 	var dices [2]int
 	for i := 0; i < 2; i++ {
-		randIndex := util.RandIntn(len(diceRange))
+		randIndex := utils.RandIntn(len(diceRange))
 		dices[i] = diceRange[randIndex]
 	}
 	return dices
