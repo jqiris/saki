@@ -1,6 +1,7 @@
 package ting
 
 import (
+	"fmt"
 	"reflect"
 	"sort"
 	"testing"
@@ -98,4 +99,11 @@ func TestCanTing(t *testing.T) {
 	if !isTing || !reflect.DeepEqual(tingCards, []int{18}) {
 		t.Error("验证叫牌失败5")
 	}
+}
+
+func TestTingMap(t *testing.T) {
+	handCards := []int{1, 1, 2, 2, 3, 3, 4, 4, 5, 5}
+	showcards := []int{8, 8, 8}
+	isTing, tingCards := CanTing(handCards, showcards)
+	fmt.Println(isTing, tingCards)
 }

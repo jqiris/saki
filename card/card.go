@@ -63,6 +63,19 @@ func IsSameType(checkCard, lackCard int) bool {
 	return checkCard/10 == lackCard/10
 }
 
+func GetMjType(tile int) int {
+	if IsDot(tile) {
+		return 0
+	}
+	if IsBAM(tile) {
+		return 1
+	}
+	if IsCrak(tile) {
+		return 2
+	}
+	return -1
+}
+
 // IsCrak 是否万
 func IsCrak(card int) bool {
 	return card >= MAHJONG_CRAK1 && card <= MAHJONG_CRAK9
